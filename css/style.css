@@ -245,14 +245,14 @@ body {
   position: relative;
 }
 
-/* 핀볼 크게 / 자리표 작게 (기본) */
+/* 핀볼 5 / 자리표 5 (기본 — 50:50) */
 #pinball-container.view-large {
-  flex: 1 1 68%;
+  flex: 0 0 50%;
   height: 100vh;
   cursor: default;
 }
 #seat-container.view-small {
-  flex: 0 0 32%;
+  flex: 0 0 50%;
   height: 100vh;
   background: #f5f7fa;
   border-left: 1px solid #e5e7eb;
@@ -261,18 +261,20 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  gap: 10px;
+  padding: 12px 8px 32px;   /* 여백 최소화 */
+  gap: 0;
 }
 #seat-container.view-small::before {
   content: '클릭하면 크게 보기';
-  font-size: 0.7rem;
-  color: #bbb;
+  font-size: 0.68rem;
+  color: #ccc;
   letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 /* 자리표 크게 / 핀볼 작게 */
 #pinball-container.view-small {
-  flex: 0 0 32%;
+  flex: 0 0 30%;
   height: 100vh;
   background: #1a1a2e;
   border-right: 1px solid #333;
@@ -294,7 +296,7 @@ body {
   white-space: nowrap;
 }
 #seat-container.view-large {
-  flex: 1 1 68%;
+  flex: 1 1 70%;
   height: 100vh;
   background: #f5f7fa;
   display: flex;
@@ -302,17 +304,25 @@ body {
   align-items: center;
   justify-content: center;
   cursor: default;
+  padding: 12px 8px 32px;
 }
 
-/* ── 자리표 스케일 (작을 때) ── */
-#seat-container.view-small #game-seat-map {
-  transform: scale(0.48);
-  transform-origin: center center;
-}
-#seat-container.view-small .seat        { width: 60px; height: 52px; }
-#seat-container.view-small .seat-name   { font-size: 0.72rem; }
-#seat-container.view-small .seat-num    { font-size: 0.56rem; }
-#seat-container.view-small .teacher-row .seat { width: 130px; }
+/* ── 자리표 기본(50%) 크기 — 크고 잘 보이게 ── */
+#seat-container.view-small .seat        { width: 72px; height: 64px; }
+#seat-container.view-small .seat-name   { font-size: 0.9rem; }
+#seat-container.view-small .seat-num    { font-size: 0.62rem; }
+#seat-container.view-small #game-seat-map { gap: 20px; }
+#seat-container.view-small .seat-row    { gap: 6px; }
+#seat-container.view-small .seat-group  { gap: 6px; }
+#seat-container.view-small .teacher-row .seat { width: 160px; }
+
+/* 자리표 크게(70%) 일 때 더 크게 */
+#seat-container.view-large .seat        { width: 80px; height: 70px; }
+#seat-container.view-large .seat-name   { font-size: 1rem; }
+#seat-container.view-large #game-seat-map { gap: 24px; }
+#seat-container.view-large .seat-row    { gap: 7px; }
+#seat-container.view-large .seat-group  { gap: 7px; }
+#seat-container.view-large .teacher-row .seat { width: 180px; }
 
 /* ── 캔버스 ── */
 #pinball-canvas {
@@ -324,23 +334,25 @@ body {
 /* ── 홈 버튼 ── */
 #home-btn {
   position: fixed;
-  top: 12px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 300;
-  background: rgba(255,255,255,0.12);
-  border: 1.5px solid rgba(255,255,255,0.25);
+  z-index: 9999;
+  background: #2563eb;
+  border: none;
   border-radius: 20px;
   color: #fff;
   font-size: 1rem;
-  padding: 5px 18px;
+  font-weight: 700;
+  padding: 6px 20px;
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: background 0.2s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  transition: background 0.15s, transform 0.15s;
   white-space: nowrap;
 }
 #home-btn:hover {
-  background: rgba(255,255,255,0.25);
+  background: #1d4ed8;
+  transform: translateX(-50%) translateY(-1px);
 }
 
 /* ── 진행 바 ── */
