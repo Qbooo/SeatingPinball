@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자리 배정 핀볼</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── 설정 화면 ── -->
+  <div id="setup-screen" class="screen active">
+    <h1>자리 배정 핀볼</h1>
+
+    <!-- 이름 입력 -->
+    <div id="name-input-area">
+      <label>이름 입력 <span class="hint">(쉼표 · 스페이스 · 엔터 구분)</span></label>
+      <textarea id="name-input" rows="4" placeholder="예) 홍길동, 김철수 이영희&#10;박민준"></textarea>
+      <div id="name-tags"></div>
+      <div id="name-count">0명 입력됨</div>
+    </div>
+
+    <!-- 자리 배치표 (설정용) -->
+    <div id="setup-seat-area">
+      <div class="setup-legend">
+        <span class="legend-normal">일반</span>
+        <span class="legend-excluded">제외 (클릭)</span>
+        <span class="legend-fixed">고정 배정 (이름 입력 후 클릭)</span>
+      </div>
+      <div id="setup-seat-map"></div>
+    </div>
+
+    <button id="start-btn" disabled>게임 시작</button>
+  </div>
+
+  <!-- ── 게임 화면 ── -->
+  <div id="game-screen" class="screen">
+
+    <!-- 핀볼 영역 (기본: 크게) -->
+    <div id="pinball-container" class="view-large">
+      <canvas id="pinball-canvas"></canvas>
+      <div id="pinball-status">
+        <span id="balls-remaining"></span>
+      </div>
+    </div>
+
+    <!-- 자리 배치표 영역 (기본: 작게) -->
+    <div id="seat-container" class="view-small">
+      <div id="game-seat-map"></div>
+    </div>
+
+    <!-- 진행 상태 바 -->
+    <div id="progress-bar-area">
+      <div id="progress-bar"></div>
+      <span id="progress-label"></span>
+    </div>
+
+  </div>
+
+  <script src="js/seats.js"></script>
+  <script src="js/pinball.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

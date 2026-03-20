@@ -1,0 +1,348 @@
+/* ════════════════════════════════════════
+   기본 리셋
+════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  background: #f5f7fa;
+  color: #1a1a2e;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════
+   화면 전환
+════════════════════════════════════════ */
+.screen        { display: none; width: 100vw; height: 100vh; }
+.screen.active { display: flex; }
+
+/* ════════════════════════════════════════
+   설정 화면
+════════════════════════════════════════ */
+#setup-screen {
+  flex-direction: column;
+  align-items: center;
+  background: #f5f7fa;
+  padding: 28px 20px 20px;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+#setup-screen h1 {
+  font-size: 2rem;
+  color: #2563eb;
+  letter-spacing: 2px;
+}
+
+/* ── 이름 입력 ── */
+#name-input-area {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#name-input-area label { font-size: 0.92rem; color: #555; }
+.hint { font-size: 0.78rem; color: #aaa; margin-left: 6px; }
+
+#name-input {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  color: #1a1a2e;
+  font-size: 1rem;
+  padding: 10px 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#name-input:focus { border-color: #2563eb; }
+
+#name-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 26px;
+}
+.name-tag {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 2px 12px;
+  font-size: 0.82rem;
+  color: #2563eb;
+}
+#name-count { font-size: 0.78rem; color: #aaa; }
+
+/* ── 설정 자리표 ── */
+#setup-seat-area {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.setup-legend { display: flex; gap: 18px; font-size: 0.78rem; }
+.legend-normal   { color: #888; }
+.legend-excluded { color: #ef4444; }
+.legend-fixed    { color: #16a34a; }
+
+/* ════════════════════════════════════════
+   공통 자리 배치표
+════════════════════════════════════════ */
+#setup-seat-map,
+#game-seat-map {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.seat-group { display: flex; flex-direction: column; gap: 7px; }
+.seat-row   { display: flex; gap: 7px; }
+
+.teacher-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* ── 자리 박스 ── */
+.seat {
+  width: 72px;
+  height: 64px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  user-select: none;
+}
+.seat:hover {
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.15);
+}
+
+.seat-num {
+  font-size: 0.62rem;
+  color: #bbb;
+  position: absolute;
+  top: 4px;
+  left: 6px;
+}
+.seat-name-input {
+  width: 88%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1a1a2e;
+  font-size: 0.82rem;
+  text-align: center;
+  outline: none;
+  padding: 2px 0;
+}
+.seat-name-input::placeholder { color: #ccc; }
+.seat-name {
+  font-size: 0.86rem;
+  color: #1a1a2e;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 4px;
+  word-break: break-all;
+}
+
+/* 상태 */
+.seat.excluded {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  opacity: 0.75;
+}
+.seat.excluded .seat-num { color: #ef4444; }
+
+.seat.fixed {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+.seat.fixed .seat-num         { color: #16a34a; }
+.seat.fixed .seat-name-input  { color: #16a34a; }
+.seat.fixed .seat-name        { color: #16a34a; }
+
+.seat.assigned {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+.seat.assigned .seat-name { color: #2563eb; font-weight: 700; }
+
+.seat.teacher {
+  width: 160px;
+  height: 52px;
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #b45309;
+  font-weight: 700;
+  cursor: default;
+  font-size: 1rem;
+}
+
+/* 배정 팝 */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.2); box-shadow: 0 0 16px rgba(37,99,235,0.4); }
+  100% { transform: scale(1); }
+}
+.seat.pop { animation: pop 0.45s ease; }
+
+/* ── 시작 버튼 ── */
+#start-btn {
+  padding: 12px 52px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  transition: all 0.2s;
+}
+#start-btn:disabled {
+  background: #e5e7eb;
+  box-shadow: none;
+  cursor: not-allowed;
+  color: #aaa;
+}
+#start-btn:not(:disabled):hover {
+  box-shadow: 0 6px 20px rgba(37,99,235,0.5);
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════════════
+   게임 화면
+════════════════════════════════════════ */
+#game-screen {
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+  background: #1a1a2e;   /* 핀볼 영역만 어둡게 */
+  position: relative;
+}
+
+/* ── 뷰 컨테이너 ── */
+#pinball-container,
+#seat-container {
+  transition: flex 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 핀볼 크게 / 자리표 작게 (기본) */
+#pinball-container.view-large {
+  flex: 1 1 68%;
+  height: 100vh;
+  cursor: default;
+}
+#seat-container.view-small {
+  flex: 0 0 32%;
+  height: 100vh;
+  background: #f5f7fa;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 10px;
+}
+#seat-container.view-small::before {
+  content: '클릭하면 크게 보기';
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 1px;
+}
+
+/* 자리표 크게 / 핀볼 작게 */
+#pinball-container.view-small {
+  flex: 0 0 32%;
+  height: 100vh;
+  background: #1a1a2e;
+  border-right: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.80;
+}
+#pinball-container.view-small::after {
+  content: '클릭하면 크게 보기';
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: #556;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+#seat-container.view-large {
+  flex: 1 1 68%;
+  height: 100vh;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+/* ── 자리표 스케일 (작을 때) ── */
+#seat-container.view-small #game-seat-map {
+  transform: scale(0.48);
+  transform-origin: center center;
+}
+#seat-container.view-small .seat        { width: 60px; height: 52px; }
+#seat-container.view-small .seat-name   { font-size: 0.72rem; }
+#seat-container.view-small .seat-num    { font-size: 0.56rem; }
+#seat-container.view-small .teacher-row .seat { width: 130px; }
+
+/* ── 캔버스 ── */
+#pinball-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── 진행 바 ── */
+#progress-bar-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 26px;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  z-index: 200;
+}
+#progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+#progress-label {
+  position: absolute;
+  right: 14px;
+  font-size: 0.75rem;
+  color: #aaa;
+}
