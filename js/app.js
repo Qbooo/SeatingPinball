@@ -155,6 +155,40 @@ function updateCellStyle(cell) {
 }
 
 // ── 게임 시작 ─────────────────────────────────────────────
+function goHome() {
+  Pinball.stop();
+  clearInterval(launchTimer);
+  launchTimer = null;
+  isGameScreen = false;
+  pinballLarge = true;
+  assigned  = 0;
+  nameQueue = [];
+  seatQueue = [];
+
+  // 화면 전환
+  document.getElementById('game-screen').classList.remove('active');
+  document.getElementById('setup-screen').classList.add('active');
+
+  // 자리 상태 초기화
+  initSeats();
+  renderSetupSeatMap();
+
+  // 이름 입력 초기화
+  names = [];
+  document.getElementById('name-input').value = '';
+  document.getElementById('name-tags').innerHTML = '';
+  document.getElementById('name-count').textContent = '0명 입력됨';
+  document.getElementById('start-btn').disabled = true;
+
+  // 진행 바 초기화
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('progress-label').textContent = '';
+}
+
+document.getElementById('home-btn').addEventListener('click', () => {
+  if (confirm('홈으로 돌아가면 현재 게임이 초기화됩니다. 계속할까요?')) goHome();
+});
+
 function startGame() {
   const available = getAvailableSeatIds();
   const fixed     = getFixedSeats();
