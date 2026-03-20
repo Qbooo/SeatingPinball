@@ -193,7 +193,8 @@ function startGame() {
   const available = getAvailableSeatIds();
   const fixed     = getFixedSeats();
 
-  nameQueue = [...names];
+  // 이름 순서 랜덤 섞기
+  nameQueue = [...names].sort(() => Math.random() - 0.5);
 
   // 고정 자리 수 + 일반 자리 수 = 배정 가능 자리
   // 이름 수가 배정 가능 수 초과 시 경고
