@@ -324,6 +324,37 @@ body {
 #seat-container.view-large .seat-group  { gap: 7px; }
 #seat-container.view-large .teacher-row .seat { width: 180px; }
 
+/* ── 회전 버튼 ── */
+#rotate-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 500;
+  background: #f1f5f9;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+#rotate-btn:hover { background: #e2e8f0; }
+
+/* ── 자리표 180도 회전 ── */
+#game-seat-map.rotated {
+  transform: rotate(180deg);
+}
+
+/* 회전 시 텍스트만 다시 뒤집기 (한글 정방향 유지) */
+#game-seat-map.rotated .seat-name,
+#game-seat-map.rotated .seat-num,
+#game-seat-map.rotated .seat-name-input {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
 /* ── 캔버스 ── */
 #pinball-canvas {
   display: block;

@@ -347,10 +347,11 @@ function updateGameSeatCell(id, name) {
 function bindViewToggle() {
   const pinballCont = document.getElementById('pinball-container');
   const seatCont    = document.getElementById('seat-container');
+  const rotateBtn   = document.getElementById('rotate-btn');
+  const seatMap     = document.getElementById('game-seat-map');
 
   seatCont.addEventListener('click', () => {
     if (pinballLarge) {
-      // 자리표 크게
       pinballCont.classList.replace('view-large', 'view-small');
       seatCont.classList.replace('view-small', 'view-large');
       pinballLarge = false;
@@ -359,11 +360,17 @@ function bindViewToggle() {
 
   pinballCont.addEventListener('click', () => {
     if (!pinballLarge) {
-      // 핀볼 다시 크게
       pinballCont.classList.replace('view-small', 'view-large');
       seatCont.classList.replace('view-large', 'view-small');
       pinballLarge = true;
     }
+  });
+
+  // 180도 회전 버튼
+  rotateBtn.addEventListener('click', e => {
+    e.stopPropagation();  // 자리표 크기 전환 이벤트 막기
+    const rotated = seatMap.classList.toggle('rotated');
+    rotateBtn.textContent = rotated ? '↺ 원래대로' : '↻ 회전';
   });
 }
 
