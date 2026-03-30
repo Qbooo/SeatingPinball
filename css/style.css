@@ -324,11 +324,19 @@ body {
 #seat-container.view-large .seat-group  { gap: 7px; }
 #seat-container.view-large .teacher-row .seat { width: 180px; }
 
-/* ── 회전 버튼 ── */
-#rotate-btn {
+/* ── 자리표 상단 컨트롤 묶음 ── */
+#seat-controls {
   position: absolute;
   top: 8px;
   right: 10px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── 회전 버튼 ── */
+#rotate-btn {
   z-index: 500;
   background: #f1f5f9;
   border: 1.5px solid #d1d5db;
@@ -341,6 +349,29 @@ body {
   transition: background 0.15s;
 }
 #rotate-btn:hover { background: #e2e8f0; }
+
+/* ── 배속 버튼 ── */
+#speed-btns {
+  display: flex;
+  gap: 4px;
+}
+.speed-btn {
+  background: #1e293b;
+  border: 1.5px solid #334155;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.speed-btn:hover { background: #334155; color: #e2e8f0; }
+.speed-btn.active {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  color: #fff;
+}
 
 /* ── 자리표 180도 회전 ── */
 #game-seat-map.rotated {

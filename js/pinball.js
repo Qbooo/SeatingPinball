@@ -13,6 +13,7 @@ const Pinball = (() => {
   let W = 0, H = 0;
   let animId = null;
   let lastTime = 0;
+  let speedMultiplier = 1.0;
 
   let balls     = [];
   let bumpers   = [];
@@ -164,8 +165,10 @@ const Pinball = (() => {
   function stop() {
     if (animId) { cancelAnimationFrame(animId); animId = null; }
   }
+  function setSpeed(mul) { speedMultiplier = mul; }
+
   function loop(now) {
-    const dt = Math.min((now - lastTime) / 1000, 0.04);
+    const dt = Math.min((now - lastTime) / 1000, 0.04) * speedMultiplier;
     lastTime = now;
     update(dt);
     draw();
@@ -580,5 +583,5 @@ const Pinball = (() => {
     return `rgb(${Math.max(0,r-t*255)|0},${Math.max(0,g-t*255)|0},${Math.max(0,b-t*255)|0})`;
   }
 
-  return { init, start, stop, launchBall, resize, buildTable };
+  return { init, start, stop, launchBall, resize, buildTable, setSpeed };
 })();

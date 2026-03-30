@@ -366,6 +366,16 @@ function bindViewToggle() {
     }
   });
 
+  // 배속 버튼
+  document.querySelectorAll('.speed-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Pinball.setSpeed(parseFloat(btn.dataset.speed));
+    });
+  });
+
   // 180도 회전 버튼
   rotateBtn.addEventListener('click', e => {
     e.stopPropagation();  // 자리표 크기 전환 이벤트 막기

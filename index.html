@@ -46,7 +46,14 @@
 
     <!-- 자리 배치표 영역 (기본: 작게) -->
     <div id="seat-container" class="view-small">
-      <button id="rotate-btn" title="180도 회전">↻ 회전</button>
+      <div id="seat-controls">
+        <button id="rotate-btn" title="180도 회전">↻ 회전</button>
+        <div id="speed-btns">
+          <button class="speed-btn" data-speed="0.5">0.5×</button>
+          <button class="speed-btn" data-speed="0.7">0.7×</button>
+          <button class="speed-btn active" data-speed="1">1×</button>
+        </div>
+      </div>
       <div id="game-seat-map"></div>
     </div>
 
